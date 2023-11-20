@@ -1,3 +1,6 @@
 [submodule "libs/ft_printf"]
 	path = libs/ft_printf
 	url = https://github.com/Floperatok/42-ft_printf
+[submodule "libs/minilibx-linux"]
+	path = libs/minilibx-linux
+	url = https://github.com/42Paris/minilibx-linux.git
