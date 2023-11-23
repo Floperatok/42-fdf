@@ -10,7 +10,7 @@ NAME			=	fdf
 #                            FILES                                 #
 ####################################################################
 
-SRC				=	main.c
+SRC				=	main.c exit.c draw.c init.c map.c
 
 LIBFT			=	libft.a
 
@@ -59,7 +59,8 @@ $(NAME):	$(OBJS)
 	@make -s -C $(MLX_PATH)
 
 	@echo -n "$(COM_COLOR)compiling $(NAME)...       $(NO_COLOR)"
-	@$(CC) $(CFLAGS) $(OBJS) $(FT_PRINTFS) $(MLXS) -lX11 -lXext -o $(NAME) -I $(INCS)
+	@$(CC) $(CFLAGS) $(OBJS) $(FT_PRINTFS) $(LIBFTS) $(MLXS) -lX11 -lXext \
+		-o $(NAME) -I $(INCS) -lm
 	@echo "$(COM_COLOR)done: $(OK_COLOR)[✓]$(NO_COLOR)"
 
 $(OBJ_PATH)%.o:	$(SRC_PATH)%.c

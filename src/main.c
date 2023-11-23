@@ -6,50 +6,50 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 12:27:22 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/21 14:22:33 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/11/23 16:55:09 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_pixel_put(t_fdf *data, int x, int y, int color)
+int	user_input(int keycode, t_fdf *data)
 {
-	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	if (keycode == 65307)
+		end(data);
+	else if (keycode == 32)
+		data->A += 0.3;
+	else
+		ft_printf("keycode = %d\n", keycode);
+	fill_black(data, SCREEN_W, SCREEN_H);
+	draw_donut(data, sin(data->A), 0.03);
+	mlx_put_image_to_window(data->mlx, data->window, data->img, 0, 0);
+	return (0);
 }
 
-void	draw(t_fdf *data)
+int	fdf(t_fdf *data)
 {
-	int	i;
-
-	i = 0;
-	while (++i < 50)
-		ft_pixel_put(data, i, i, 0x00FF0000);
+	mlx_hook(data->window, 17, 0L, &end, data);
+	mlx_hook(data->window, 2, 1L<<0, &user_input, data);
+	mlx_loop(data->mlx);
+	return (0);
 }
 
-int	end(t_fdf *data)
+int	main(int ac, char **av)
 {
-	mlx_destroy_image(data->mlx, data->img);
-	mlx_destroy_window(data->mlx, data->window);
-	mlx_destroy_display(data->mlx);
-	free(data->mlx);
-	exit(EXIT_SUCCESS);
-}
+	t_fdf	*data;
 
-int	main(void)
-{
-	t_fdf	data;
-
-	data.mlx = mlx_init();
-	data.window = mlx_new_window(data.mlx, 1920, 1080, "Hello world!");
-	// data.img = mlx_new_image(data.mlx, 1920, 1080);
-	// data.addr = mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.line_length,
-								// &data.endian);
-	// ft_printf("%s", data.addr);
-	// draw(&data);
-	// mlx_hook(data.window, 17, 0, &end, &data);
-	// mlx_put_image_to_window(data.mlx, data.window, data.img, 0, 0);
-	mlx_loop(data.mlx);
+	(void)av;
+	if (ac > 2)
+	{
+		ft_putstr_fd("Error: Too many arguments where given to ./fdf\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	if (ac < 2)
+	{
+		ft_putstr_fd("Usage: ./fdf [FILE]\nExemple: './fdf 42.fdf'\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	data = ft_init();
+	fdf(data);
 }
