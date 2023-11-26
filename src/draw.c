@@ -6,38 +6,72 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:44:00 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/23 16:49:49 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/11/26 10:50:49 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include <stdio.h>
 
 /*
  *	Write on the image a pixel of the color of your choice
- *	on the given coordinates
+ *		on the given coordinates.
 */
 void	ft_pixel_put(t_fdf *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	if (x > 0 && x < SCREEN_W && y > 0 && y < SCREEN_H)
+	{
+		dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
 }
 
-void	fill_black(t_fdf *data, int width, int height)
+/*
+ *	Fill the entire image with black pixels.
+ *	This function is meant to reset the screen in black, overwriting the
+ *		previous frame, ready for drawing the next frame.
+*/
+void	fill_black(t_fdf *data)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (++i < height)
+	while (++i < SCREEN_H)
 	{
 		j = -1;
-		while (++j < width)
-			ft_pixel_put(data, j, i, 0x000000);
+		while (++j < SCREEN_W)
+			ft_pixel_put(data, j, i, BLACK);
 	}
 }
 
+/*
+ *	Draw a line from point a to point b.
+*/
+void	draw_line(t_fdf *data, t_point *a, t_point *b)
+{
+	t_point	vector;
+	double	distance;
+	double	x;
+	double	y;
+	double	i;
+
+	vector.x = b->x - a->x;
+	vector.y = b->y - a->y;
+	distance = fabs(a->x - b->x) + fabs(a->y - b->y);
+	i = 0;
+	while (++i < distance)
+	{
+		x = a->x + (vector.x / distance) * i;
+		y = a->y + (vector.y / distance) * i;
+		ft_pixel_put(data, (int)x, (int)y, WHITE);
+	}
+}
+
+// a.x=1 ; a.y=2    b.x=4 ; b.y=-1
+/*
 void	draw_donut(t_fdf *data, double A_tmp, double B_tmp)
 {
 	double	pi = 3.14159265;
@@ -120,3 +154,4 @@ void	draw_donut(t_fdf *data, double A_tmp, double B_tmp)
 				ft_pixel_put(data, j, i, 0x00FFFFFF);
 	}
 }
+*/
