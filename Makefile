@@ -10,7 +10,13 @@ NAME			=	fdf
 #                            FILES                                 #
 ####################################################################
 
-SRC				=	main.c exit.c draw.c init.c map.c
+SRC				=	main.c \
+					exit.c \
+					draw.c \
+					init.c \
+					map.c \
+					render.c \
+					utils.c
 
 LIBFT			=	libft.a
 

@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 12:28:12 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/23 16:54:56 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/11/26 10:53:27 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@
 # define SCREEN_W 1920
 
 # define WHITE 0x00FFFFFF
+# define BLACK 0x00000000
 
 typedef struct	s_point
 {
-	int	x;
-	int	y;
-	int	z;
+	double	x;
+	double	y;
+	double	z;
 }				t_point;
 
 
@@ -47,19 +48,28 @@ typedef struct	s_fdf {
 	int		line_length;
 	int		endian;
 
-	char 	***map;
-	double	A;
+	t_point	*map;
+	int		map_ysize;
+	int		map_xsize;
+
+	t_point	origin;
+	int		scale;
 }				t_fdf;
 
 t_fdf	*ft_init(void);
 
-void	read_map(t_fdf *data, char *file);
+void	assign_point(t_point *point, int x, int y, int z);
+
+void	create_map(t_fdf *data, char *file);
 
 void	ft_pixel_put(t_fdf *data, int x, int y, int color);
-void	fill_black(t_fdf *data, int width, int height);
-void	draw_player(t_fdf *data, int size);
+void	fill_black(t_fdf *data);
+void	draw_line(t_fdf *data, t_point *a, t_point *b);
 void	draw_donut(t_fdf *data, double A_tmp, double B_tmp);
 
+void	render(t_fdf *data);
+
+void	free_tab(char **tab);
 void	error_handler(t_fdf *data);
 int		end(t_fdf *data);
 

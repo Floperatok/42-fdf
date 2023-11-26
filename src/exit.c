@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:36:49 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/23 16:47:19 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/11/26 10:15:59 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,8 @@ void	free_tab(char **tab)
 
 void	free_data(t_fdf *data)
 {
-	// int	i;
-
-	// i = -1;
-	// while (data->map[++i])
-	// 	free_tab(data->map[i]);
-	// free(data->map);
+	if (data->map)
+		free(data->map);
 	free(data->mlx);
 	free(data);
 }
