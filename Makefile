@@ -3,7 +3,7 @@
 ####################################################################
 
 CC				=	cc
-CFLAGS			=	-Wall -Werror -Wextra -g
+CFLAGS			=	-Wall -Werror -Wextra
 NAME			=	fdf
 
 ####################################################################
@@ -16,7 +16,11 @@ SRC				=	main.c \
 					init.c \
 					map.c \
 					render.c \
-					utils.c
+					utils.c \
+					rotation.c \
+					computation.c \
+					color.c \
+					user_input.c
 
 LIBFT			=	libft.a
 

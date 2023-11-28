@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:44:00 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/26 10:50:49 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/11/28 17:31:35 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,24 @@
 /*
  *	Write on the image a pixel of the color of your choice
  *		on the given coordinates.
+ *	Arguments:
+ *		t_fdf *d		: The main d structure.
+ *		t_point	pixel	: The point with the coordinates of the pixel.
+ *		int color		: The color in the format 0xAARRGGBB.
 */
-void	ft_pixel_put(t_fdf *data, int x, int y, int color)
+void	ft_pixel_put(t_fdf *d, t_point pixel)
 {
 	char	*dst;
+	int		x;
+	int		y;
 
+	x = pixel.x;
+	y = pixel.y;
 	if (x > 0 && x < SCREEN_W && y > 0 && y < SCREEN_H)
 	{
-		dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-		*(unsigned int *)dst = color;
+		dst = (char *)d->addr + (y * d->line_length + x * \
+			(d->bits_per_pixel / 8));
+		*(unsigned int *)dst = pixel.color;
 	}
 }
 
@@ -32,47 +41,87 @@ void	ft_pixel_put(t_fdf *data, int x, int y, int color)
  *	Fill the entire image with black pixels.
  *	This function is meant to reset the screen in black, overwriting the
  *		previous frame, ready for drawing the next frame.
+ *	Arguments:
+ *		t_fdf *d	: The main d structure.
 */
-void	fill_black(t_fdf *data)
+void	fill_black(t_fdf *d)
 {
-	int	i;
-	int	j;
+	t_point	pixel;
+	int		i;
+	int		j;
 
 	i = -1;
 	while (++i < SCREEN_H)
 	{
 		j = -1;
 		while (++j < SCREEN_W)
-			ft_pixel_put(data, j, i, BLACK);
+		{
+			pixel.x = j;
+			pixel.y = i;
+			pixel.color = 0x000000;
+			ft_pixel_put(d, pixel);
+		}
+	}
+}
+
+static void	draw_line_thickness(t_fdf *d, t_point pixel)
+{
+	int		i;
+	t_point	thinckness;
+
+	i = d->line_thickness;
+	while (--i > 0)
+	{
+		thinckness.color = pixel.color;
+		thinckness.x = pixel.x + i;
+		thinckness.y = pixel.y;
+		ft_pixel_put(d, thinckness);
+		thinckness.x = pixel.x - i;
+		thinckness.y = pixel.y;
+		ft_pixel_put(d, thinckness);
+		thinckness.x = pixel.x;
+		thinckness.y = pixel.y + i;
+		ft_pixel_put(d, thinckness);
+		thinckness.x = pixel.x;
+		thinckness.y = pixel.y - i;
+		ft_pixel_put(d, thinckness);
 	}
 }
 
 /*
- *	Draw a line from point a to point b.
+ *	Draw a line pixel by pixel from point a to point b.
+ *	Arguments:
+ *		t_fdf *d	: The main data structure.
+ *		t_point *a	: The point a.
+ *		t_point *a	: The point b.
 */
-void	draw_line(t_fdf *data, t_point *a, t_point *b)
+void	draw_line(t_fdf *d, t_point a, t_point b)
 {
 	t_point	vector;
+	t_point	pixel;
 	double	distance;
-	double	x;
-	double	y;
+	int		color_distance;
 	double	i;
 
-	vector.x = b->x - a->x;
-	vector.y = b->y - a->y;
-	distance = fabs(a->x - b->x) + fabs(a->y - b->y);
+	color_distance = a.color - b.color;
+	vector.x = b.x - a.x;
+	vector.y = b.y - a.y;
+	distance = fabs(a.x - b.x) + fabs(a.y - b.y);
 	i = 0;
 	while (++i < distance)
 	{
-		x = a->x + (vector.x / distance) * i;
-		y = a->y + (vector.y / distance) * i;
-		ft_pixel_put(data, (int)x, (int)y, WHITE);
+		pixel.x = a.x + (vector.x / distance) * i;
+		pixel.y = a.y + (vector.y / distance) * i;
+		pixel.color = a.color + color_distance / 2;
+		pixel.color = compute_color(a.color, b.color, i, distance);
+		ft_pixel_put(d, pixel);
+		draw_line_thickness(d, pixel);
 	}
 }
 
 // a.x=1 ; a.y=2    b.x=4 ; b.y=-1
 /*
-void	draw_donut(t_fdf *data, double A_tmp, double B_tmp)
+void	draw_donut(t_fdf *d, double A_tmp, double B_tmp)
 {
 	double	pi = 3.14159265;
 
@@ -151,7 +200,5 @@ void	draw_donut(t_fdf *data, double A_tmp, double B_tmp)
 		int j = -1;
 		while (++j < width)
 			if (output[j][i] == 1)
-				ft_pixel_put(data, j, i, 0x00FFFFFF);
-	}
-}
-*/
+				ft_pixel_put(d, j, i, 0x000000FF);
+	}0000*/

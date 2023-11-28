@@ -6,26 +6,11 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:41:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/26 10:44:32 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/11/28 16:30:00 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-/*
- *	Free the char*** map.
- *	Arguments:
- *		char***char_map	: The map.
-*/
-static void	free_char_map(char ***char_map)
-{
-	int	i;
-
-	i = -1;
-	while (char_map[++i])
-		free_tab(char_map[i]);
-	free(char_map);
-}
 
 /*
  *	Find the dimension x of the map, returns -1 if the file of the map is not
@@ -130,6 +115,14 @@ static char	***read_map(char *file, int size_y)
 	return (char_map);
 }
 
+static void	get_file_dimensions(t_fdf *d, char *file)
+{
+	d->map_xsize = get_size_x(file);
+	d->map_ysize = get_size_y(file);
+	if (d->map_xsize == -1 || d->map_ysize == -1)
+		error_handler(d);
+}
+
 /*
  *	Fill the data->map with all the points find in the map.
  *	data->map is null terminated.
@@ -138,30 +131,29 @@ static char	***read_map(char *file, int size_y)
  *		t_fdf *data : The main data structure.
  *		char *file	: The path of the map.
 */
-void	create_map(t_fdf *data, char *file)
+void	create_map(t_fdf *d, char *file)
 {
 	char	***char_map;
 	int		x;
 	int		y;
 
-	data->map_xsize = get_size_x(file);
-	data->map_ysize = get_size_y(file);
-	if (data->map_xsize == -1 || data->map_ysize == -1)
-		error_handler(data);
-	data->map = malloc(sizeof(t_point) * (data->map_xsize * \
-											data->map_ysize + 1));
-	if (!data->map)
-		error_handler(data);
-	char_map = read_map(file, data->map_ysize);
+	get_file_dimensions(d, file);
+	d->map = malloc(sizeof(t_point) * (d->map_xsize * d->map_ysize + 1));
+	if (!d->map)
+		error_handler(d);
+	char_map = read_map(file, d->map_ysize);
 	if (!char_map)
-		error_handler(data);
+		error_handler(d);
 	y = -1;
-	while (++y < data->map_ysize)
+	while (++y < d->map_ysize)
 	{
 		x = -1;
-		while (++x < data->map_xsize)
-			assign_point(&(data->map[data->map_xsize * y + x]), x, y, \
+		while (++x < d->map_xsize)
+		{
+			assign_point(&(d->map[d->map_xsize * y + x]), x, y, \
 						ft_atoi(char_map[y][x]));
+			d->map[d->map_xsize * y + x].color = get_color(char_map[y][x]);
+		}
 	}
 	free_char_map(char_map);
 }

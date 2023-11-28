@@ -6,46 +6,37 @@
 /*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 12:27:22 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/26 11:00:21 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/11/28 17:00:12 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	user_input(int keycode, t_fdf *data)
+int	spinning(t_fdf *d)
 {
-	if (keycode == 65307)
-		end(data);
-	else if (keycode == 65362)
-		data->origin.y -= 1;
-	else if (keycode == 65363)
-		data->origin.x += 1;
-	else if (keycode == 65364)
-		data->origin.y += 1;
-	else if (keycode == 65361)
-		data->origin.x -= 1;
-	else if (keycode == 65453 && data->scale > 1)
-		data->scale -= 1;
-	else if (keycode == 65451)
-		data->scale += 1;
-	else
-		ft_printf("keycode = %d\n", keycode);
-	render(data);
+	if (d->auto_rotation)
+	{
+		d->roty += 0.01;
+		apply_change(d);
+		render(d);
+	}
 	return (0);
 }
 
-int	fdf(t_fdf *data)
+int	fdf(t_fdf *d)
 {
-	render(data);
-	mlx_hook(data->window, 17, 0L, &end, data);
-	mlx_hook(data->window, 2, 1L << 0, &user_input, data);
-	mlx_loop(data->mlx);
+	apply_change(d);
+	render(d);
+	mlx_hook(d->window, 17, 0L, &end, d);
+	mlx_hook(d->window, 2, 1L << 0, &user_input, d);
+	mlx_loop_hook(d->mlx, &spinning, d);
+	mlx_loop(d->mlx);
 	return (0);
 }
 
 int	main(int ac, char **av)
 {
-	t_fdf	*data;
+	t_fdf	*d;
 
 	if (ac > 2)
 	{
@@ -57,7 +48,8 @@ int	main(int ac, char **av)
 		ft_putstr_fd("Usage: ./fdf [FILE]\nExemple: './fdf 42.fdf'\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	data = ft_init();
-	create_map(data, av[1]);
-	fdf(data);
+	d = ft_init(av);
+	if (!d->map_end)
+		error_handler(d);
+	fdf(d);
 }
