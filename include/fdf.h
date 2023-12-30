@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nikotine <nikotine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 12:28:12 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/28 17:37:57 by nsalles          ###   ########.fr       */
+/*   Updated: 2023/12/30 13:17:40 by nikotine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FDF_H
 
 # include "../libs/libft/libft.h"
-# include "../libs/ft_printf/include/ft_printf.h"
 # include "../libs/minilibx-linux/mlx.h"
 # include <math.h>
 # include <fcntl.h>
