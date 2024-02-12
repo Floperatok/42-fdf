@@ -6,7 +6,7 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 12:28:12 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/12 22:42:26 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/12 22:57:26 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ typedef struct s_point
 	int		color;
 }				t_point;
 
-/* Our main data structure
- *	Contains all of the informations about our image
-*/
 typedef struct s_fdf {
 	void	*mlx;
 	void	*window;
@@ -78,8 +75,6 @@ void	create_map(t_fdf *data, char *file);
 void	ft_pixel_put(t_fdf *data, t_point p);
 void	fill_black(t_fdf *data);
 void	draw_line(t_fdf *data, t_point a, t_point b);
-void	make_rotation(t_fdf *data, double rot, char axe);
-void	draw_donut(t_fdf *data, double A_tmp, double B_tmp);
 
 void	rot_x_point(t_point *point, double rot, int sizey);
 void	rot_y_point(t_point *point, double rot, int sizex);
