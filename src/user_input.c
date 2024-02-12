@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   user_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 16:45:32 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/28 17:26:16 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/12 22:55:10 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static void	user_input4(int keycode, t_fdf *d)
 		else
 			d->plan = 1;
 	}
-	else if (keycode == 49)
-		d->projection = 2;
 	else if (keycode == 65289)
 	{
 		if (d->auto_rotation == 0)
@@ -88,6 +86,9 @@ static void	user_input2(int keycode, t_fdf *d)
 		user_input3(keycode, d);
 }
 
+/*
+ *	Listing of all the user inputs.
+*/
 int	user_input(int keycode, t_fdf *d)
 {
 	if (keycode == 65307)

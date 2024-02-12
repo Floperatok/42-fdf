@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:49:04 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/28 16:44:53 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/12 22:47:02 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Init all the values of position, rotation and zoom.
+*/
 void	default_values(t_fdf *d)
 {
 	d->scale = (SCREEN_H - SCREEN_H / 1.5) / d->map_ysize * 2;

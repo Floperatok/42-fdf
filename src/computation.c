@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   computation.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 19:05:33 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/28 15:22:56 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/12 22:13:38 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,18 @@ void	assign_point(t_point *point, int x, int y, int z)
 	point->z = z;
 }
 
+/*
+ *	Apply the offset to a point.
+*/
 void	apply_offset(t_point offset, t_point *point)
 {
 	point->x = point->x + offset.x;
 	point->y = point->y + offset.y;
 }
 
+/*
+ *	Apply the scale to a point.
+*/
 void	apply_scale(double scale, t_point *point, int plan)
 {
 	if (plan == 0)
@@ -44,11 +50,16 @@ void	apply_scale(double scale, t_point *point, int plan)
 	}
 }
 
+/*
+ *	Apply the depth to a point.
+*/
 void	apply_depth(double depth, t_point *point)
 {
 	point->z = point->z * depth;
 }
-
+/*
+ *	Apply the depth to a point.
+*/
 void	apply_change(t_fdf *d)
 {
 	int	y;

@@ -3,25 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:36:49 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/28 16:12:47 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/12 22:45:13 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	free_tab(char **tab)
+/*
+ *	Free the array of strings.
+*/
+void	free_array(char **array)
 {
 	int	i;
 
 	i = -1;
-	while (tab[++i])
-		free(tab[i]);
-	free(tab);
+	while (array[++i])
+		free(array[i]);
+	free(array);
 }
 
+/*
+ *	Free all the data structure.
+*/
 void	free_data(t_fdf *d)
 {
 	if (d->map)
@@ -34,8 +40,6 @@ void	free_data(t_fdf *d)
 
 /*
  *	Free the char*** map.
- *	Arguments:
- *		char***char_map	: The map.
 */
 void	free_char_map(char ***char_map)
 {
@@ -43,10 +47,13 @@ void	free_char_map(char ***char_map)
 
 	i = -1;
 	while (char_map[++i])
-		free_tab(char_map[i]);
+		free_array(char_map[i]);
 	free(char_map);
 }
 
+/*
+ *	Free all the data structure and exit with an error.
+*/
 void	error_handler(t_fdf *d)
 {
 	free_data(d);
@@ -54,6 +61,9 @@ void	error_handler(t_fdf *d)
 	exit(EXIT_FAILURE);
 }
 
+/*
+ *	Closing program function, free everything and close the window.
+*/
 int	end(t_fdf *d)
 {
 	mlx_destroy_image(d->mlx, d->img);

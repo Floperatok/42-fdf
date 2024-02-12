@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 13:36:27 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/28 16:10:52 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/12 22:08:25 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Convert the color code from string to int.
+*/
 int	get_color(char *str)
 {
 	char			*char_color;
@@ -30,6 +33,9 @@ int	get_color(char *str)
 	return (res);
 }
 
+/*
+ *	Returns the color according to the position on the gradient.
+*/
 int	compute_color(int start_color, int end_color, int pos, int size)
 {
 	int	r;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nikotine <nikotine@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 12:28:12 by nsalles           #+#    #+#             */
-/*   Updated: 2023/12/30 13:17:40 by nikotine         ###   ########.fr       */
+/*   Updated: 2024/02/12 22:42:26 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	apply_change(t_fdf *d);
 void	render(t_fdf *d);
 
 int		ft_atoi_base(char *str, char *base);
-void	free_tab(char **tab);
+void	free_array(char **array);
 void	free_char_map(char ***char_map);
 void	error_handler(t_fdf *data);
 int		end(t_fdf *data);

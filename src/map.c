@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 22:41:46 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/28 16:30:00 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/12 22:48:32 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 /*
  *	Find the dimension x of the map, returns -1 if the file of the map is not
  *		found or the file is empty.
- *	Argument:
- *		char* file : The path of the map.
- *	Return value:
- *		int: The dimension x of the map
 */
 static int	get_size_x(char *file)
 {
@@ -52,10 +48,6 @@ static int	get_size_x(char *file)
 /*
  *	Find the dimension y of the map, returns -1 if the file of the map
  *		is not found.
- *	Argument:
- *		char* file : The path of the map.
- *	Return value:
- *		int: The dimension y of the map
 */
 static int	get_size_y(char *file)
 {
@@ -80,11 +72,6 @@ static int	get_size_y(char *file)
  *	Read the file, split each row and return all of the file content 
  *		in the null terminated char***.
  *	In case of an error, returns NULL.
- *	Arguments:
- *		char* file  : The path of the map.
- *		int size_y  : The y dimension of the map.
- *	Return value:
- *		char***		: The map. 
 */
 static char	***read_map(char *file, int size_y)
 {
@@ -115,6 +102,9 @@ static char	***read_map(char *file, int size_y)
 	return (char_map);
 }
 
+/*
+ *	Fill up the data structure with the dimensions of the map.
+*/
 static void	get_file_dimensions(t_fdf *d, char *file)
 {
 	d->map_xsize = get_size_x(file);
@@ -127,9 +117,6 @@ static void	get_file_dimensions(t_fdf *d, char *file)
  *	Fill the data->map with all the points find in the map.
  *	data->map is null terminated.
  *	Also assign to data->map_xsize and data->map_ysize the dimensions of the map
- *	Arguments:
- *		t_fdf *data : The main data structure.
- *		char *file	: The path of the map.
 */
 void	create_map(t_fdf *d, char *file)
 {

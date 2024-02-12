@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 20:27:23 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/28 11:42:36 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/12 22:54:27 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Apply the z axis rotation on the point.
+*/
 void	rot_z_point(t_point *point, double rot)
 {
 	double	x;
@@ -22,7 +25,9 @@ void	rot_z_point(t_point *point, double rot)
 	point->x = x;
 	point->y = y;
 }
-
+/*
+ *	Apply the y axis rotation on the point.
+*/
 void	rot_y_point(t_point *point, double rot, int sizex)
 {
 	double	x;
@@ -36,6 +41,9 @@ void	rot_y_point(t_point *point, double rot, int sizex)
 	point->z = z;
 }
 
+/*
+ *	Apply the x axis rotation on the point.
+*/
 void	rot_x_point(t_point *point, double rot, int sizey)
 {
 	double	y;

@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 12:27:22 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/28 17:00:12 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/12 22:47:36 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Auto rotation handling.
+*/
 int	spinning(t_fdf *d)
 {
 	if (d->auto_rotation)

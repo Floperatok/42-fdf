@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsalles <nsalles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 09:13:30 by nsalles           #+#    #+#             */
-/*   Updated: 2023/11/28 13:42:29 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/12 22:56:06 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ static int	get_base_index(char c, char *base)
 	return (i);
 }
 
+/*
+ *	Convert the given string into integer in the given base.
+*/
 int	ft_atoi_base(char *str, char *base)
 {
 	int	sign;
