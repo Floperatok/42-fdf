@@ -6,14 +6,14 @@
 /*   By: nsalles <nsalles@student.42perpignan.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 12:28:12 by nsalles           #+#    #+#             */
-/*   Updated: 2024/02/12 22:57:26 by nsalles          ###   ########.fr       */
+/*   Updated: 2024/02/12 23:47:08 by nsalles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "../libs/libft/libft.h"
+# include "../libs/libft/includes/libft.h"
 # include "../libs/minilibx-linux/mlx.h"
 # include <math.h>
 # include <fcntl.h>
